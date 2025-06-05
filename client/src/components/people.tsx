@@ -1,4 +1,4 @@
-import { Star, MapPin, ArrowRight, Mail, Linkedin, Github } from "lucide-react";
+import { Star, MapPin, ArrowRight, Mail, Linkedin, Github, Instagram, Youtube } from "lucide-react";
 /**
  * People/Team section component for HUMANAI portfolio website
  * Displays CEO profile card and team statistics with interactive hover effects
@@ -15,7 +15,7 @@ export default function People() {
       bio: "Great things begin with a dream-dare to make them real.",
       skills: ["React", "Node.js", "TypeScript", "MongoDB", "Express", "Docker", "AWS"],
       rating: 4.8,
-      image: "../../public/kondal.png"
+      image: "/kondal.png"
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ export default function People() {
       bio: "Expert in modern web technologies and cloud architecture",
       skills: ["React", "Node.js", "TypeScript", "MongoDB", "Express", "Docker", "AWS"],
       rating: 4.8,
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+      image: "/nishanth.png"
     },
     {
       id: 3,
@@ -57,12 +57,16 @@ export default function People() {
           <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold">
             Founder & CEO
           </div>
-          
+
           {/* Profile Image */}
           <div className="text-center mb-4">
             <div className="relative inline-block">
-              <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full mx-auto mb-4"></div>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-medium">
+              <img
+                src="../../public/dileep.png"
+                alt="Profile"
+                className="w-36 h-36 rounded-full object-cover mx-auto mb-4 border-4 border-teal-500"
+              />
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-md">
                 5+ years
               </div>
             </div>
@@ -70,7 +74,7 @@ export default function People() {
 
           {/* CEO Info */}
           <div className="text-center mb-4">
-            <h3 className="text-2xl font-bold mb-2 text-white">Dileep Naredla</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">Dileep Reddy Naredla</h3>
             <p className="text-emerald-300 mb-3">Ms Computer Science</p>
             <p className="text-sm text-gray-300 leading-relaxed">
               Visionary leader specializing in AI-powered solutions and building innovative digital experiences that transform businesses.
@@ -107,19 +111,28 @@ export default function People() {
             <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">Python</span>
             <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">MongoDB</span>
             <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">PostgreSQL</span>
-            <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">Elastic Search</span>
             <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">AWS</span>
             <span className="bg-emerald-500/20 border border-emerald-500/30 px-3 py-1 rounded-full text-sm text-emerald-300">GCP</span>
           </div>
 
           {/* Social Links */}
           <div className="flex justify-center gap-4 mb-6">
-            <Github className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
-            <Linkedin className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
-            <svg className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-            </svg>
-            <Mail className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+            <Github 
+            onClick={() => window.open("https://github.com/humanai7/humanai-branding", "_blank")}
+            className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+            <Instagram
+            onClick={() => window.open("https://www.instagram.com/humanai.insta", "_blank")}
+            className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+            <Youtube
+            onClick={() => {
+              window.open("https://www.youtube.com/@HUMANAI.youtube", "_blank", "noopener,noreferrer")
+            }}
+            className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+            <Mail
+            onClick={() => {
+              window.location.href = "mailto:humanai7.enquiries@gmail.com?subject=Let's Connect";
+            }}
+            className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
           </div>
 
           {/* Connect Button */}
@@ -160,9 +173,9 @@ export default function People() {
               <img 
                 src={member.image} 
                 alt={member.name}
-                className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+                className="w-20 h-20 rounded-full mx-auto mb-4 object-cover object-top"
               />
-              <h3 className="text-xl font-bold text-white mb-1">{member.name} {member.image}</h3>
+              <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
               <p className="text-gray-300 font-medium mb-2">{member.role}</p>
               <div className="flex items-center justify-center mb-3">
                 <Star className="w-4 h-4 text-yellow-400 mr-1" />
