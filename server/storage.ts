@@ -1,25 +1,57 @@
+/**
+ * HUMANAI Portfolio Data Storage Layer
+ * Provides in-memory data storage for development and prototyping
+ * Includes interfaces for users, contacts, and projects
+ */
+
 import { users, contacts, projects, type User, type Contact, type Project, type InsertUser, type InsertContact, type InsertProject } from "@shared/schema";
 
+/**
+ * Storage interface defining all data operations
+ * Provides type-safe methods for CRUD operations on all entities
+ */
 export interface IStorage {
+  // User management operations
+  /** Retrieve user by ID */
   getUser(id: number): Promise<User | undefined>;
+  /** Find user by username */
   getUserByUsername(username: string): Promise<User | undefined>;
+  /** Create new user account */
   createUser(user: InsertUser): Promise<User>;
   
+  // Contact form submissions
+  /** Save contact form submission */
   createContact(contact: InsertContact): Promise<Contact>;
+  /** Retrieve all contact submissions */
   getContacts(): Promise<Contact[]>;
   
+  // Project portfolio management
+  /** Get all portfolio projects */
   getProjects(): Promise<Project[]>;
+  /** Add new project to portfolio */
   createProject(project: InsertProject): Promise<Project>;
 }
 
+/**
+ * In-memory storage implementation for HUMANAI portfolio
+ * Provides fast, temporary storage for development and prototyping
+ * Data persists only during server session - suitable for demos and development
+ */
 export class MemStorage implements IStorage {
+  // Private data stores using Maps for O(1) lookups
   private users: Map<number, User>;
   private contacts: Map<number, Contact>;
   private projects: Map<number, Project>;
+  
+  // Auto-incrementing ID counters for entity creation
   private currentUserId: number;
   private currentContactId: number;
   private currentProjectId: number;
 
+  /**
+   * Initialize storage with empty data structures and seed data
+   * Sets up Maps for each entity type and initializes sample projects
+   */
   constructor() {
     this.users = new Map();
     this.contacts = new Map();
@@ -43,60 +75,12 @@ export class MemStorage implements IStorage {
         technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"]
       },
       {
-        title: "HumanAI7 Portfolio Website",
-        description: "Modern portfolio website showcasing AI-powered web and content creation services. Built with cutting-edge technologies featuring responsive design, contact forms, and seamless user experience.",
+        title: "HumanAI Website",
+        description: "A modern portfolio website highlighting AI-powered web and content creation services. Designed with cutting-edge technologies, it features a fully responsive layout, interactive contact forms, and a seamless user experience optimized for all devices.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
         demoUrl: "https://humanai7-portfolio.demo.com",
         githubUrl: "https://github.com/humanai7/portfolio-website",
         technologies: ["React", "Vite", "Express", "Tailwind CSS", "TypeScript"]
-      },
-      {
-        title: "SmartCommerce AI",
-        description: "An AI-powered e-commerce platform with intelligent product recommendations, automated inventory management, and personalized shopping experiences.",
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://smartcommerce-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/smartcommerce-ai",
-        technologies: ["React", "AI/ML", "Node.js"]
-      },
-      {
-        title: "DataViz AI Dashboard",
-        description: "Intelligent analytics dashboard that uses AI to automatically generate insights from complex datasets and create dynamic visualizations.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://dataviz-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/dataviz-ai",
-        technologies: ["D3.js", "Python", "TensorFlow"]
-      },
-      {
-        title: "ContentCraft AI",
-        description: "AI-driven content management system that automatically optimizes content for SEO, generates meta descriptions, and suggests improvements.",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://contentcraft-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/contentcraft-ai",
-        technologies: ["Vue.js", "OpenAI API", "MongoDB"]
-      },
-      {
-        title: "SmartChat Assistant",
-        description: "Intelligent chatbot with natural language processing capabilities, context awareness, and seamless integration with business workflows.",
-        image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://smartchat.demo.com",
-        githubUrl: "https://github.com/humanai7/smartchat",
-        technologies: ["React", "NLP", "WebSocket"]
-      },
-      {
-        title: "PortfolioGen AI",
-        description: "AI-powered portfolio generator that creates personalized websites based on user input, with automatic layout optimization and content suggestions.",
-        image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://portfoliogen-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/portfoliogen-ai",
-        technologies: ["Next.js", "GPT API", "Tailwind"]
-      },
-      {
-        title: "LearnSmart AI",
-        description: "Adaptive learning platform that uses AI to personalize educational content, track progress, and optimize learning paths for individual students.",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://learnsmart-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/learnsmart-ai",
-        technologies: ["Angular", "Machine Learning", "PostgreSQL"]
       }
     ];
 

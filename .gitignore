@@ -1,7 +1,18 @@
+# dependencies
 node_modules
+.yarn/cache
+.yarn/unplugged
+.pnp.*
+.yarn/install-state.gz
+
+# build output
 dist
+build
+
+# system
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
-node_modules/
+*.log
+
+# IDE
+.vscode/*
+!.vscode/settings.json

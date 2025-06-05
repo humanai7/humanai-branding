@@ -1,4 +1,4 @@
-import { User, FolderOpen, Youtube, Users, Mail, Home, Sparkles, ChevronRight, Zap } from "lucide-react";
+import { FolderOpen, Youtube, Users, Mail, Home, ChevronRight } from "lucide-react";
 
 interface SidebarProps {
   activeSection: string;
