@@ -76,7 +76,7 @@ export class MemStorage implements IStorage {
       },
       {
         title: "HumanAI Website",
-        description: "Modern portfolio website showcasing AI-powered web and content creation services. Built with cutting-edge technologies featuring responsive design, contact forms, and seamless user experience.",
+        description: "A modern portfolio website highlighting AI-powered web and content creation services. Designed with cutting-edge technologies, it features a fully responsive layout, interactive contact forms, and a seamless user experience optimized for all devices.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
         demoUrl: "https://humanai7-portfolio.demo.com",
         githubUrl: "https://github.com/humanai7/portfolio-website",

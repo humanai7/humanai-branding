@@ -28,12 +28,12 @@ export default function People() {
     },
     {
       id: 3,
-      name: "Pranay Yelti",
+      name: "Pranay Reddy Yelti",
       role: "Data Engineer",
       bio: "Designs and builds scalable data pipelines and infrastructure to support analytics, machine learning, and real-time data processing.",
-      skills: ["Python", "SQL", "Apache Spark", "Airflow", "AWS", "Data Warehousing"],
+      skills: ["Python", "SQL", "Apache Spark", "AWS", "Data Warehousing"],
       rating: 4.9,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+      image: "/pranay.png"
     }
   ];
 
@@ -62,7 +62,7 @@ export default function People() {
           <div className="text-center mb-4">
             <div className="relative inline-block">
               <img
-                src="../../public/dileep.png"
+                src="/dileep.png"
                 alt="Profile"
                 className="w-36 h-36 rounded-full object-cover mx-auto mb-4 border-4 border-teal-500"
               />

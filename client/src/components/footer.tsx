@@ -1,4 +1,12 @@
-import { Heart, Code, Github, Linkedin, Mail, MapPin, Zap } from "lucide-react";
+import { Heart,
+  Code,
+  Github,
+  Instagram,
+  Youtube,
+  Mail,
+  MapPin,
+  Zap
+} from "lucide-react";
 import humanaiLogo from "@assets/humanai-final-tranparent-logo_1749148793272.png";
 
 /**
@@ -53,30 +61,40 @@ export default function Footer() {
               Transforming ideas into reality through the perfect fusion of human creativity and artificial intelligence. 
               Building the future of digital experiences, one innovation at a time.
             </p>
-            
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
               <div className="flex items-center text-gray-300">
                 <MapPin className="w-4 h-4 mr-3 text-emerald-400" />
-                <span className="text-sm">San Francisco, CA</span>
+                <span className="text-sm">Charlotte, NC</span>
               </div>
               <div className="flex items-center text-gray-300">
-                <Mail className="w-4 h-4 mr-3 text-emerald-400" />
+                <Mail
+                onClick={() => {
+                  window.location.href = "mailto:humanai7.enquiries@gmail.com?subject=Let's Connect";
+                }}
+                className="w-4 h-4 mr-3 text-emerald-400" />
                 <span className="text-sm">humanai7.enquiries@gmail.com</span>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="flex space-x-4">
-              <button className="w-12 h-12 bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-xl flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:scale-110 transition-all duration-300 shadow-lg border border-emerald-500/20 backdrop-blur-sm hover:border-emerald-400/40">
-                <Github className="w-5 h-5" />
-              </button>
-              <button className="w-12 h-12 bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-xl flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:scale-110 transition-all duration-300 shadow-lg border border-emerald-500/20 backdrop-blur-sm hover:border-emerald-400/40">
-                <Linkedin className="w-5 h-5" />
-              </button>
-              <button className="w-12 h-12 bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-xl flex items-center justify-center text-gray-300 hover:text-emerald-400 hover:scale-110 transition-all duration-300 shadow-lg border border-emerald-500/20 backdrop-blur-sm hover:border-emerald-400/40">
-                <Mail className="w-5 h-5" />
-              </button>
+              <Github 
+              onClick={() => window.open("https://github.com/humanai7/humanai-branding", "_blank")}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Instagram
+              onClick={() => window.open("https://www.instagram.com/humanai.insta", "_blank")}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Youtube
+              onClick={() => {
+                window.open("https://www.youtube.com/@HUMANAI.youtube", "_blank", "noopener,noreferrer")
+              }}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Mail
+              onClick={() => {
+                window.location.href = "mailto:humanai7.enquiries@gmail.com?subject=Let's Connect";
+              }}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
             </div>
           </div>
           
@@ -127,7 +145,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-emerald-500/20 pt-8">
           <div className="text-gray-400 text-sm text-center">
-            <p>&copy; 2024 HUMANAI. All rights reserved.</p>
+            <p>&copy; 2025 HUMANAI. All rights reserved.</p>
             <p className="mt-1 flex items-center justify-center">
               Built with <Heart className="w-4 h-4 mx-1 text-red-400" /> and <Code className="w-4 h-4 mx-1 text-emerald-400" />, powered by AI <Zap className="w-4 h-4 ml-1 text-yellow-400" />
             </p>

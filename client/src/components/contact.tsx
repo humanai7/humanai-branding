@@ -1,69 +1,66 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { insertContactSchema, type InsertContact } from "@shared/schema";
+import { useMutation } from "@tanstack/react-query";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 import { ArrowRight, Mail, User, MessageSquare } from "lucide-react";
 
-/**
- * Contact form component for HUMANAI portfolio website
- * Handles user inquiries with form validation, submission, and email notifications
- * Uses React Hook Form with Zod validation and TanStack Query for API management
- * @returns JSX.Element - Complete contact section with form and validation
- */
-export default function Contact() {
-  // Toast notifications for user feedback
-  const { toast } = useToast();
-  // Query client for cache management
-  const queryClient = useQueryClient();
+// ✅ Zod schema for form validation
+const insertContactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Enter a valid email"),
+  message: z.string().min(1, "Message is required"),
+});
 
-  // Form configuration with Zod schema validation and default values
+type InsertContact = z.infer<typeof insertContactSchema>;
+
+export default function Contact() {
+  const { toast } = useToast();
+
   const form = useForm<InsertContact>({
-    resolver: zodResolver(insertContactSchema), // Zod validation resolver
+    resolver: zodResolver(insertContactSchema),
     defaultValues: {
-      name: "",    // User's full name
-      email: "",   // User's email address
-      message: "", // User's inquiry message
+      name: "",
+      email: "",
+      message: "",
     },
+    mode: "onChange",
+    criteriaMode: "all",
   });
 
-  // Mutation for handling contact form submission with success/error handling
   const mutation = useMutation({
-    /**
-     * Mutation function to submit contact form data to API
-     * @param data - Validated contact form data containing name, email, and message
-     * @returns Promise<any> - API response result
-     */
     mutationFn: async (data: InsertContact) => {
-      const result = await apiRequest("/api/contacts", "POST", data);
-      return result;
+      const response = await fetch("https://formspree.io/f/xyzjzqrw ", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Failed to send message.");
+      return response.json();
     },
-    
-    /**
-     * Success handler for successful form submission
-     * Shows success toast, resets form, and invalidates contact cache
-     */
+
     onSuccess: () => {
       toast({
-        title: "Message received!",
-        description: "Your contact information has been recorded. We'll respond within 24 hours.",
+        title: "Message sent!",
+        description: "We'll get back to you soon.",
       });
-      form.reset(); // Clear form fields
-      queryClient.invalidateQueries({ queryKey: ["/api/contacts"] }); // Refresh cache
+      form.reset();
     },
-    
-    /**
-     * Error handler for failed form submission
-     * @param error - Error object from failed API request
-     */
+
     onError: (error: any) => {
       toast({
-        title: "Failed to send message",
+        title: "Failed to send",
         description: error.message || "Please try again later.",
         variant: "destructive",
       });
@@ -76,7 +73,6 @@ export default function Contact() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Write to HUMANAI support team
@@ -86,13 +82,14 @@ export default function Contact() {
         </p>
       </div>
 
-      {/* Contact Form */}
       <div className="bg-slate-800/50 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-emerald-500/20 mb-12 hover:scale-105 hover:shadow-2xl hover:border-emerald-400/40 hover:bg-slate-800/70 transition-all duration-300">
-        <h2 className="text-2xl font-bold text-white mb-8 text-center">Send us a message</h2>
-        
+        <h2 className="text-2xl font-bold text-white mb-8 text-center">
+          Send us a message
+        </h2>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Name Field */}
+            {/* Name */}
             <FormField
               control={form.control}
               name="name"
@@ -113,7 +110,7 @@ export default function Contact() {
               )}
             />
 
-            {/* Email Field */}
+            {/* Email */}
             <FormField
               control={form.control}
               name="email"
@@ -135,7 +132,7 @@ export default function Contact() {
               )}
             />
 
-            {/* Message Field */}
+            {/* Message */}
             <FormField
               control={form.control}
               name="message"
@@ -151,16 +148,12 @@ export default function Contact() {
                       />
                     </div>
                   </FormControl>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs text-gray-500">Max characters</span>
-                    <span className="text-xs text-gray-500">0/500</span>
-                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* Submit Button */}
+            {/* Send Button - Always Enabled */}
             <Button
               type="submit"
               disabled={mutation.isPending}
@@ -177,25 +170,6 @@ export default function Contact() {
             </Button>
           </form>
         </Form>
-      </div>
-
-      {/* Additional Contact Info */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="text-center p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-emerald-500/20 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-emerald-500/20 hover:to-teal-500/20 hover:border-emerald-400/40 transition-all duration-300 cursor-pointer">
-          <Mail className="w-8 h-8 text-emerald-400 mx-auto mb-3" />
-          <p className="text-sm font-medium text-white mb-1">Email</p>
-          <p className="text-xs text-gray-300">humanai7.enquiries@gmail.com</p>
-        </div>
-        <div className="text-center p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-purple-500/20 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-purple-500/20 hover:to-pink-500/20 hover:border-purple-400/40 transition-all duration-300 cursor-pointer">
-          <MessageSquare className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-          <p className="text-sm font-medium text-white mb-1">Response Time</p>
-          <p className="text-xs text-gray-300">Within 24 hours</p>
-        </div>
-        <div className="text-center p-6 bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-teal-500/20 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-teal-500/20 hover:to-emerald-500/20 hover:border-teal-400/40 transition-all duration-300 cursor-pointer">
-          <User className="w-8 h-8 text-teal-400 mx-auto mb-3" />
-          <p className="text-sm font-medium text-white mb-1">Support</p>
-          <p className="text-xs text-gray-300">24/7 Available</p>
-        </div>
       </div>
     </div>
   );
