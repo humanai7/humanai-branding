@@ -1,94 +1,98 @@
-import { Brain, Cpu, Lightbulb, Rocket, Users, Target, ArrowRight } from "lucide-react";
+import { Code, Rocket, Target, ArrowRight, Trophy } from "lucide-react";
 
+/**
+ * About section component for HUMANAI portfolio website
+ * Displays company information, services, statistics, and branding
+ * Features responsive design with glassmorphism effects and hover animations
+ * @returns JSX.Element - Complete about section with logo, services, and stats
+ */
 export default function About() {
   return (
-    <div className="bg-gradient-to-br from-emerald-900 via-teal-800 to-green-900 relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-300 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-300 rounded-full blur-3xl"></div>
-      </div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="flex items-center justify-center min-h-screen p-4">
+        <div className="w-full max-w-4xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-emerald-500/20 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-12">
+          
+          {/* Header with Logo */}
+          <div className="text-center mb-12">
+            <div className="flex justify-center mb-6">
+              <img 
+                src="/logo.png" 
+                alt="HUMANAI Logo" 
+                className="w-20 h-20 object-contain"
+              />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-[0.2em] uppercase">
+              HUMANAI
+            </h1>
+            <p className="text-emerald-300 text-lg mb-2">
+              AI-Powered Creator
+            </p>
+            <p className="text-gray-300 text-base">
+              Transforming digital experiences through intelligent web development and AI-powered content creation.
+            </p>
+          </div>
 
-      {/* Main Section - Side by Side Layout */}
-      <div className="relative z-10 px-4 py-8 sm:px-6 lg:px-8 lg:py-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Left Content */}
-            <div className="text-white space-y-8">
-              <div className="space-y-4">
-                <p className="text-emerald-300 font-medium tracking-wide uppercase text-sm">
-                  we love to create - intelligently
-                </p>
-                <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
-                  The future with bold
-                  <br />
-                  <span className="text-emerald-300">ideas</span> and flawless
-                  <br />
-                  <span className="flex items-center gap-2">
-                    <ArrowRight className="text-emerald-300 w-10 h-10" />
-                    execution.
-                  </span>
-                </h1>
-                <p className="text-emerald-100 text-lg leading-relaxed">
-                  Our AI specializes in vibrant branding and unique translations of your vision into immersive digital experiences.
-                </p>
+          {/* Service Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <div className="text-center p-6 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-2xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-emerald-500/30 hover:to-teal-500/30 transition-all duration-300 cursor-pointer">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Code className="w-8 h-8 text-white" />
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-white text-emerald-900 px-8 py-4 rounded-lg font-semibold hover:bg-emerald-50 transition-all duration-300 flex items-center gap-2 group">
-                  Get In Touch
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button className="border-2 border-emerald-300 text-emerald-300 px-8 py-4 rounded-lg font-semibold hover:bg-emerald-300 hover:text-emerald-900 transition-all duration-300 flex items-center gap-2 group">
-                  Explore Projects
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+              <h3 className="text-lg font-bold text-white mb-2">AI Integration</h3>
+              <p className="text-sm text-gray-300">Intelligent automation and machine learning solutions</p>
             </div>
 
-            {/* Right Visual Card */}
-            <div className="relative">
-              <div className="relative bg-gradient-to-br from-orange-400 via-pink-400 to-purple-500 rounded-3xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 space-y-6">
-                  <div className="w-24 h-24 bg-black rounded-full mx-auto flex items-center justify-center">
-                    <img src="/humanai_logo.png" alt="HUMANAI" className="w-16 h-16 object-contain" />
-                  </div>
-                  
-                  <div className="text-center text-white">
-                    <h3 className="text-2xl font-bold mb-2">HUMANAI</h3>
-                    <p className="text-white/90 mb-4">AI-Powered Creator</p>
-                    <p className="text-sm text-white/80 leading-relaxed">
-                      Transforming digital experiences through intelligent web development and AI-powered content creation.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 mt-6">
-                    <div className="bg-white/20 rounded-lg p-3 text-center">
-                      <Brain className="w-6 h-6 text-white mx-auto mb-2" />
-                      <p className="text-xs text-white font-medium">AI Integration</p>
-                    </div>
-                    <div className="bg-white/20 rounded-lg p-3 text-center">
-                      <Rocket className="w-6 h-6 text-white mx-auto mb-2" />
-                      <p className="text-xs text-white font-medium">Fast Delivery</p>
-                    </div>
-                    <div className="bg-white/20 rounded-lg p-3 text-center">
-                      <Lightbulb className="w-6 h-6 text-white mx-auto mb-2" />
-                      <p className="text-xs text-white font-medium">Creative Solutions</p>
-                    </div>
-                    <div className="bg-white/20 rounded-lg p-3 text-center">
-                      <Target className="w-6 h-6 text-white mx-auto mb-2" />
-                      <p className="text-xs text-white font-medium">Precision</p>
-                    </div>
-                  </div>
-                </div>
+            <div className="text-center p-6 bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-2xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-pointer">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Rocket className="w-8 h-8 text-white" />
               </div>
-
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -left-4 w-20 h-20 bg-yellow-400 rounded-full animate-bounce"></div>
-              <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-pink-400 rounded-full animate-pulse"></div>
-              <div className="absolute top-1/2 -left-8 w-12 h-12 bg-orange-400 rounded-full animate-ping"></div>
+              <h3 className="text-lg font-bold text-white mb-2">Fast Delivery</h3>
+              <p className="text-sm text-gray-300">Quick turnaround times without compromising quality</p>
             </div>
+
+            <div className="text-center p-6 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300 cursor-pointer">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Target className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Precision</h3>
+              <p className="text-sm text-gray-300">Accurate solutions tailored to your specific needs</p>
+            </div>
+
+            <div className="text-center p-6 bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-2xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-orange-500/30 hover:to-red-500/30 transition-all duration-300 cursor-pointer">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Trophy className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Quality</h3>
+              <p className="text-sm text-gray-300">Excellence in every project and deliverable</p>
+            </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="text-center p-4 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-emerald-500/30 hover:to-teal-500/30 transition-all duration-300 cursor-pointer">
+              <p className="text-2xl font-bold text-emerald-400">150+</p>
+              <p className="text-sm text-gray-300">Projects</p>
+            </div>
+            <div className="text-center p-4 bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-pointer">
+              <p className="text-2xl font-bold text-blue-400">98%</p>
+              <p className="text-sm text-gray-300">Success Rate</p>
+            </div>
+            <div className="text-center p-4 bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-pink-500/30 transition-all duration-300 cursor-pointer">
+              <p className="text-2xl font-bold text-purple-400">24/7</p>
+              <p className="text-sm text-gray-300">Support</p>
+            </div>
+            <div className="text-center p-4 bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-xl backdrop-blur-sm hover:scale-105 hover:bg-gradient-to-br hover:from-orange-500/30 hover:to-red-500/30 transition-all duration-300 cursor-pointer">
+              <p className="text-2xl font-bold text-orange-400">5+</p>
+              <p className="text-sm text-gray-300">Years</p>
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center">
+            <button className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 flex items-center justify-center gap-2 mx-auto group">
+              Get Started Today
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
         </div>
       </div>

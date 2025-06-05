@@ -6,12 +6,18 @@ import { createServer } from "http";
 
 // server/storage.ts
 var MemStorage = class {
+  // Private data stores using Maps for O(1) lookups
   users;
   contacts;
   projects;
+  // Auto-incrementing ID counters for entity creation
   currentUserId;
   currentContactId;
   currentProjectId;
+  /**
+   * Initialize storage with empty data structures and seed data
+   * Sets up Maps for each entity type and initializes sample projects
+   */
   constructor() {
     this.users = /* @__PURE__ */ new Map();
     this.contacts = /* @__PURE__ */ new Map();
@@ -32,60 +38,12 @@ var MemStorage = class {
         technologies: ["React", "Node.js", "MongoDB", "Express", "Socket.io"]
       },
       {
-        title: "HumanAI7 Portfolio Website",
+        title: "HumanAI Website",
         description: "Modern portfolio website showcasing AI-powered web and content creation services. Built with cutting-edge technologies featuring responsive design, contact forms, and seamless user experience.",
         image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
         demoUrl: "https://humanai7-portfolio.demo.com",
         githubUrl: "https://github.com/humanai7/portfolio-website",
         technologies: ["React", "Vite", "Express", "Tailwind CSS", "TypeScript"]
-      },
-      {
-        title: "SmartCommerce AI",
-        description: "An AI-powered e-commerce platform with intelligent product recommendations, automated inventory management, and personalized shopping experiences.",
-        image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://smartcommerce-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/smartcommerce-ai",
-        technologies: ["React", "AI/ML", "Node.js"]
-      },
-      {
-        title: "DataViz AI Dashboard",
-        description: "Intelligent analytics dashboard that uses AI to automatically generate insights from complex datasets and create dynamic visualizations.",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://dataviz-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/dataviz-ai",
-        technologies: ["D3.js", "Python", "TensorFlow"]
-      },
-      {
-        title: "ContentCraft AI",
-        description: "AI-driven content management system that automatically optimizes content for SEO, generates meta descriptions, and suggests improvements.",
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://contentcraft-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/contentcraft-ai",
-        technologies: ["Vue.js", "OpenAI API", "MongoDB"]
-      },
-      {
-        title: "SmartChat Assistant",
-        description: "Intelligent chatbot with natural language processing capabilities, context awareness, and seamless integration with business workflows.",
-        image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://smartchat.demo.com",
-        githubUrl: "https://github.com/humanai7/smartchat",
-        technologies: ["React", "NLP", "WebSocket"]
-      },
-      {
-        title: "PortfolioGen AI",
-        description: "AI-powered portfolio generator that creates personalized websites based on user input, with automatic layout optimization and content suggestions.",
-        image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://portfoliogen-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/portfoliogen-ai",
-        technologies: ["Next.js", "GPT API", "Tailwind"]
-      },
-      {
-        title: "LearnSmart AI",
-        description: "Adaptive learning platform that uses AI to personalize educational content, track progress, and optimize learning paths for individual students.",
-        image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400",
-        demoUrl: "https://learnsmart-ai.demo.com",
-        githubUrl: "https://github.com/humanai7/learnsmart-ai",
-        technologies: ["Angular", "Machine Learning", "PostgreSQL"]
       }
     ];
     sampleProjects.forEach((project) => {
@@ -187,14 +145,31 @@ import { z } from "zod";
 
 // server/email.ts
 async function sendEmail(params) {
-  console.log("\n=== NEW CONTACT FORM SUBMISSION ===");
-  console.log(`To: ${params.to}`);
-  console.log(`From: ${params.from}`);
-  console.log(`Subject: ${params.subject}`);
-  console.log(`Message:
-${params.text}`);
-  console.log("================================\n");
-  return true;
+  try {
+    const timestamp2 = (/* @__PURE__ */ new Date()).toISOString();
+    console.log("\n\u{1F525} NEW CONTACT FORM SUBMISSION \u{1F525}");
+    console.log(`\u{1F4C5} Timestamp: ${timestamp2}`);
+    console.log(`\u{1F4E7} Destination: ${params.to}`);
+    console.log(`\u{1F464} Sender: ${params.from}`);
+    console.log(`\u{1F4DD} Subject: ${params.subject}`);
+    console.log("\u{1F4AC} Message Content:");
+    console.log("\u2500".repeat(50));
+    console.log(params.text);
+    console.log("\u2500".repeat(50));
+    console.log("\u2705 Contact form data logged successfully\n");
+    const submissionData = {
+      timestamp: timestamp2,
+      destination: params.to,
+      sender: params.from,
+      subject: params.subject,
+      message: params.text
+    };
+    console.log("\u{1F4EC} Email ready for delivery service integration");
+    return true;
+  } catch (error) {
+    console.error("\u274C Contact form processing error:", error);
+    return false;
+  }
 }
 function formatContactEmail(contact) {
   const subject = `HUMANAI Contact: ${contact.subject}`;
@@ -214,7 +189,9 @@ Submitted at: ${(/* @__PURE__ */ new Date()).toLocaleString()}
   `.trim();
   return {
     to: "humanai7.enquiries@gmail.com",
+    // HUMANAI support email
     from: contact.email || "contact@humanai.dev",
+    // Use contact's email or fallback
     subject,
     text: text2
   };
@@ -274,34 +251,35 @@ import { createServer as createViteServer, createLogger } from "vite";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { fileURLToPath } from "url";
+import checker from "vite-plugin-checker";
+var __filename = fileURLToPath(import.meta.url);
+var __dirname = path.dirname(__filename);
 var vite_config_default = defineConfig({
   plugins: [
     react(),
-    runtimeErrorOverlay(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
-      await import("@replit/vite-plugin-cartographer").then(
-        (m) => m.cartographer()
-      )
-    ] : []
+    checker({
+      typescript: true
+    })
   ],
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "client", "src"),
-      "@shared": path.resolve(import.meta.dirname, "shared"),
-      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+      "@": path.resolve(__dirname, "client", "src"),
+      "@shared": path.resolve(__dirname, "shared"),
+      "@assets": path.resolve(__dirname, "attached_assets")
     }
   },
-  root: path.resolve(import.meta.dirname, "client"),
+  root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true
   },
   server: {
     fs: {
       strict: true,
       deny: ["**/.*"]
-    }
+    },
+    allowedHosts: true
   }
 });
 
@@ -320,8 +298,8 @@ function log(message, source = "express") {
 async function setupVite(app2, server) {
   const serverOptions = {
     middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true
+    hmr: { server }
+    // ❌ removed: allowedHosts (not needed in dev)
   };
   const vite = await createViteServer({
     ...vite_config_default,
@@ -417,7 +395,9 @@ app.use((req, res, next) => {
   server.listen({
     port,
     host: "0.0.0.0",
+    // Accept connections from any IP address
     reusePort: true
+    // Allow port reuse for faster restarts
   }, () => {
     log(`serving on port ${port}`);
   });

@@ -3,49 +3,55 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Sidebar from "@/components/sidebar";
 import Header from "@/components/header";
 import MainContent from "@/components/main-content";
 
+/**
+ * Main application component for HUMANAI portfolio website
+ * Manages global state, section navigation, search functionality, and layout
+ * Provides context for React Query, tooltips, and toast notifications
+ * @returns JSX.Element - Complete application with header, content, and providers
+ */
 function App() {
-  const [activeSection, setActiveSection] = useState(() => {
-    // Initialize from localStorage or default to 'about'
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('activeSection') || 'about';
-    }
-    return 'about';
-  });
-
+  // State for tracking currently active section (defaults to 'about')
+  const [activeSection, setActiveSection] = useState('about');
+  
+  // State for managing search query input
   const [searchQuery, setSearchQuery] = useState('');
+  // Reference to main content container for scroll management
   const mainContentRef = useRef<HTMLDivElement>(null);
 
+  /**
+   * Handles navigation between different sections of the website
+   * Updates active section state and performs smooth scrolling to target element
+   * @param section - Target section identifier to navigate to
+   */
   const handleSectionChange = (section: string) => {
     console.log('App: Changing section from', activeSection, 'to', section);
     
-    // Scroll to top immediately before changing section
-    if (mainContentRef.current) {
-      mainContentRef.current.scrollTop = 0;
-    }
-    
+    // Update active section state
     setActiveSection(section);
-    // Persist to localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('activeSection', section);
-    }
     
-    // Force scroll to top again after state change
-    requestAnimationFrame(() => {
-      if (mainContentRef.current) {
-        mainContentRef.current.scrollTop = 0;
-      }
-    });
+    // Scroll to the target section element with smooth animation
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else if (section === 'about' || section === 'home') {
+      // For about/home sections, scroll to top of page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
+  /**
+   * Handles search functionality with intelligent section navigation
+   * Analyzes search query and automatically navigates to relevant sections
+   * @param query - User's search input string
+   */
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     console.log('Search query:', query);
     
-    // Basic search functionality - navigate to relevant sections based on search terms
+    // Intelligent search routing based on query keywords
     const lowerQuery = query.toLowerCase();
     if (lowerQuery.includes('project')) {
       handleSectionChange('projects');
@@ -65,42 +71,10 @@ function App() {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-
-    // Listen for storage changes to sync across tabs
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'activeSection' && e.newValue) {
-        setActiveSection(e.newValue);
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  // Scroll to top when active section changes
   useEffect(() => {
     console.log('App: Active section changed to:', activeSection);
-    
-    // Multiple scroll reset attempts for reliability
-    const scrollToTop = () => {
-      if (mainContentRef.current) {
-        mainContentRef.current.scrollTop = 0;
-        mainContentRef.current.scrollTo(0, 0);
-      }
-      
-      // Also try scrolling the window and document
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    };
-    
-    // Immediate scroll
-    scrollToTop();
-    
-    // Delayed scroll to ensure DOM is updated
-    setTimeout(scrollToTop, 0);
-    setTimeout(scrollToTop, 10);
-    setTimeout(scrollToTop, 100);
   }, [activeSection]);
 
   return (
@@ -118,16 +92,8 @@ function App() {
           
           {/* Main Layout below header */}
           <div className="flex flex-1 pt-16">
-            {/* Fixed Sidebar - minimized on mobile */}
-            <div className="fixed left-0 top-16 bottom-0 w-16 lg:w-80 z-40">
-              <Sidebar 
-                activeSection={activeSection} 
-                onSectionChange={handleSectionChange} 
-              />
-            </div>
-            
-            {/* Main Content Area - scrollable and flexible */}
-            <div className="flex-1 ml-16 lg:ml-80 overflow-hidden">
+            {/* Main Content Area - full width */}
+            <div className="flex-1 overflow-hidden">
               <div ref={mainContentRef} className="h-full overflow-y-auto" id="main-scroll-container">
                 <MainContent activeSection={activeSection} />
               </div>
