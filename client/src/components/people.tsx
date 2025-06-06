@@ -75,7 +75,7 @@ export default function People() {
           {/* CEO Info */}
           <div className="text-center mb-4">
             <h3 className="text-2xl font-bold mb-2 text-white">Dileep Reddy Naredla</h3>
-            <p className="text-emerald-300 mb-3">Ms Computer Science</p>
+            <p className="text-emerald-300 mb-3">Master of Science (MS) in Computer Science</p>
             <p className="text-sm text-gray-300 leading-relaxed">
               Visionary leader specializing in AI-powered solutions and building innovative digital experiences that transform businesses.
             </p>
