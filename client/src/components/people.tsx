@@ -196,15 +196,22 @@ export default function People() {
             </div>
 
             <div className="flex justify-center space-x-3">
-              <button className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-lg transition-all">
-                <Mail className="w-4 h-4 text-emerald-400" />
-              </button>
-              <button className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-lg transition-all">
-                <Linkedin className="w-4 h-4 text-emerald-400" />
-              </button>
-              <button className="p-2 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-lg transition-all">
-                <Github className="w-4 h-4 text-emerald-400" />
-              </button>
+              <Github 
+              onClick={() => window.open("https://github.com/humanai7/humanai-branding", "_blank")}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Instagram
+              onClick={() => window.open("https://www.instagram.com/humanai.insta", "_blank")}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Youtube
+              onClick={() => {
+                window.open("https://www.youtube.com/@HUMANAI.youtube", "_blank", "noopener,noreferrer")
+              }}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
+              <Mail
+              onClick={() => {
+                window.location.href = "mailto:humanai7.enquiries@gmail.com?subject=Let's Connect";
+              }}
+              className="w-6 h-6 text-gray-300 hover:text-emerald-400 cursor-pointer transition-colors" />
             </div>
           </div>
         ))}
