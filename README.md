@@ -196,23 +196,6 @@ Currently using in-memory storage for fast development. For production:
    - Survives server restarts in development
    - Consider Redis for production caching
 
-## 🚀 Deployment
-
-### Replit Deployment
-The application is optimized for Replit deployment:
-
-1. **Environment Setup**
-   - Configure secrets in Replit
-   - Ensure all dependencies are installed
-
-2. **Build Configuration**
-   - Vite builds are optimized for production
-   - Static assets served efficiently
-
-3. **Domain Configuration**
-   - Custom domain support available
-   - SSL/TLS handled automatically
-
 ### Manual Deployment
 
 1. **Build Production Version**
