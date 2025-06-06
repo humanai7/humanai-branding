@@ -285,6 +285,9 @@ var vite_config_default = defineConfig({
 
 // server/vite.ts
 import { nanoid } from "nanoid";
+import { fileURLToPath as fileURLToPath2 } from "url";
+var __filename2 = fileURLToPath2(import.meta.url);
+var __dirname2 = path2.dirname(__filename2);
 var viteLogger = createLogger();
 function log(message, source = "express") {
   const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
@@ -299,7 +302,6 @@ async function setupVite(app2, server) {
   const serverOptions = {
     middlewareMode: true,
     hmr: { server }
-    // ❌ removed: allowedHosts (not needed in dev)
   };
   const vite = await createViteServer({
     ...vite_config_default,
@@ -318,12 +320,7 @@ async function setupVite(app2, server) {
   app2.use("*", async (req, res, next) => {
     const url = req.originalUrl;
     try {
-      const clientTemplate = path2.resolve(
-        import.meta.dirname,
-        "..",
-        "client",
-        "index.html"
-      );
+      const clientTemplate = path2.resolve(__dirname2, "..", "client", "index.html");
       let template = await fs.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
@@ -341,7 +338,7 @@ function serveStatic(app2) {
   const distPath = path2.resolve(import.meta.dirname, "public");
   if (!fs.existsSync(distPath)) {
     throw new Error(
-      `Could not find the build directory: ${distPath}, make sure to build the client first`
+      `\u274C Could not find the build directory: ${distPath}, make sure to build the client first`
     );
   }
   app2.use(express.static(distPath));
@@ -391,7 +388,8 @@ app.use((req, res, next) => {
   } else {
     serveStatic(app);
   }
-  const port = 3e3;
+  const port = Number(process.env.PORT || 3e3);
+  ;
   server.listen({
     port,
     host: "0.0.0.0",
