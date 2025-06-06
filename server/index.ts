@@ -91,7 +91,7 @@ app.use((req, res, next) => {
 
   // Server startup configuration
   // Port 3000
-  const port = 3000;
+  const port = Number(process.env.PORT || 3000);;
   server.listen({
     port,
     host: "0.0.0.0", // Accept connections from any IP address
