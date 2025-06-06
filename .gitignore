@@ -16,3 +16,4 @@ build
 # IDE
 .vscode/*
 !.vscode/settings.json
+dist/
